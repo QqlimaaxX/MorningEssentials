@@ -2,12 +2,26 @@
 	
 	<div class="column">
 		<h1>Article</h1>
-		<div class="ui container segments">
-			<div class="ui green segment" v-for="article in articles">
-				<div class="ui header"><a :href="article.url">{{article.title}}</a></div>
-				<img class="ui small rounded image" :src="article.urlToImage" alt="">
-				<p>{{article.description}}</p>
+
+			<div class="ui container segments" style="">
+
+				<div class="ui loading segment" v-if="updating">
+					<h1>Loading Articles, please wait</h1>
+				</div>
+
+				<div v-else class="ui orange segment" v-for="article in articles">
+					<div class="ui grid">
+						<div class="three wide column">
+							<a :href="article.url" target=_blank class="ui rounded image"><img :src="article.urlToImage" alt=""></a>
+						</div>
+						<div class="nine wide column">
+							<div class="header"><a :href="article.url">{{article.title}}</a></div>
+							<p>{{article.description}}</p>
+						</div>
+					</div>
+				</div>
 			</div>
+
 		</div>
 	</div>
 
@@ -20,14 +34,17 @@ export default{
 		return{
 			articles:Object,
 			apiKey:"b9c65a8b75424a56afe6f912b813a06a",
-			url:"https://newsapi.org/v1/articles?sortBy=latest"
+			url:"https://newsapi.org/v1/articles?",
+			updating:false
 		}
 	},
 	methods:{
 		updateArticle(){
+			if(this.source==""){return;} // check the default value of <select> in News.vue
+			this.updating = true;
 			this.$http.get(this.url+"&source="+this.source+"&apiKey="+this.apiKey).then(resp=>{
 				this.articles = resp.body.articles;
-				console.log(resp.body);
+				this.updating = false;
 			});
 		}
 	},

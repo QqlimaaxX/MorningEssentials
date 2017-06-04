@@ -2,8 +2,11 @@
 	
 	<div class="column">
 		<h1>News</h1>
-		<select v-model="selectedSource">
-			<!-- <option value="default">Select News Source</option> -->
+		<input type="checkbox" v-model="isChecked" value="true" @change="getSources">Show News only related to {{countryName}}</br>
+		<i class="notched circle loading icon" v-if="isLoadingSources"></i>
+		<select v-model="selectedSource" :disabled="isLoadingSources" class="ui dropdown">
+			<option value="default" v-if="isLoadingSources">Loading</option>
+			<option value="default" v-else>Select News Source</option>
 			<option v-for="source,index in sources" :value="index">{{source.name}}</option>
 		</select>
 		<app-news-article :source="generatedId"></app-news-article>
@@ -21,6 +24,9 @@ export default{
 			locUrl:"https://ipapi.co/json/",
 			newsUrl:"https://newsapi.org/v1/sources",
 			location:"",
+			countryName:"",
+			isChecked:false,
+			isLoadingSources:false,
 			sources:[],
 			selectedSource:"default"
 		}
@@ -37,19 +43,29 @@ export default{
 	},
 	methods:{
 		initialise(){
+			this.isLoadingSources = true;
 			this.getLoc();
 		},
 		getLoc(){   //gets country code of the user to get country based news
 			console.log("getting country");
 			this.$http.get(this.locUrl).then(resp=>{
 				this.location = resp.body.country;
-				this.getSources(this.location);   //we use new location to fetch sources
+				this.countryName = resp.body.country_name;
+				console.log(this.location);
+				console.log(this.countryName);
+				this.getSources();   //we use new location to fetch sources
 			});
 		},
-		getSources(location){
-			let url = this.newsUrl + "?country=" + location;
+		getSources(){
+			this.selectedSource = "default";
+			this.isLoadingSources = true;
+			let url = this.newsUrl;
+			if(this.isChecked){
+				url = url + "?country=" + this.location;
+			}
 			this.$http.get(url).then(resp=>{
 				this.sources = resp.body.sources;
+				this.isLoadingSources = false;
 			});
 		}
 	},
