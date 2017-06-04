@@ -1,12 +1,23 @@
 <template>
 	<div>
 		<h1>Morning Essentials</h1>
-	</div>	
+		<div class="ui grid">
+				<app-news></app-news>
+		</div>	
+	</div>
 </template>
 
 <script>
-	export default{
+import News from './components/News.vue';
 
+	export default{
+		data:function(){
+			return{
+			}
+		},
+		components:{
+			AppNews:News
+		}
 	}
 </script>
 
