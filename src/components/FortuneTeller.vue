@@ -1,8 +1,11 @@
 <template>
-	<div class="ui container">
-		<h1>Fortune Baba Says</h1>
-		<h2>{{msg}}</h2>
+<transition name="bottom-to-up" appear>
+
+	<div class="ui container segment">
+		<div class="ui header">Fortune Baba Says</div>
+		<div class="content">{{msg}}</div>
 	</div>
+</transition>
 </template>
 
 <script>
@@ -10,7 +13,7 @@
 export default{
 	data(){
 		return{
-			msg:"",
+			msg:"Loading...",
 			apiUrl:"https://helloacm.com/api/fortune/"
 		}
 	},
