@@ -1,7 +1,7 @@
 <template>
 	
 	<div class="column">
-		<h1>Article</h1>
+		<h1>Articles</h1>
 
 			<div class="ui container segments" style="">
 
@@ -11,11 +11,11 @@
 
 				<div v-else class="ui orange segment" v-for="article in articles">
 					<div class="ui grid">
-						<div class="three wide column">
-							<a :href="article.url" target=_blank class="ui rounded image"><img :src="article.urlToImage" alt=""></a>
+						<div class="four wide column">
+							<a :href="article.url" target="_blank" class="ui rounded image"><img :src="article.urlToImage" alt=""></a>
 						</div>
-						<div class="nine wide column">
-							<div class="header"><a :href="article.url">{{article.title}}</a></div>
+						<div class="twelve wide column">
+							<div class="header"><a target="_blank" :href="article.url">{{article.title}}</a></div>
 							<p>{{article.description}}</p>
 						</div>
 					</div>

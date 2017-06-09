@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<transition-group tag="div" class="ui grid container segment" name="scale">
+		<transition-group tag="div" class="ui stackable grid container segment" name="scale">
 			<!-- title -->
 		 	<div class="sixteen wide column" key="title">
-				<div class="ui center aligned segment" @click="resetView">
+				<div class="ui center aligned inverted green segment mainTitle" @click="resetView">
 					<div class="ui header">	
 						Morning Essentials
 					</div>
@@ -19,9 +19,14 @@
 				<app-news></app-news>
 			</div>
 
-			<!-- Flip a Coin -->
-			<div v-if="!somethingSelected" class="eight wide column" key="coin">
-				<app-flip-a-coin></app-flip-a-coin>
+			<!-- WeatherReportSelector -->
+			<div v-if="!somethingSelected" class="eight wide column" key="weatherSelector">
+				<app-weather-report-selector @weatherSelected="weatherSelectedProc"></app-weather-report-selector>
+			</div>
+
+			<!-- WeatherReportSection -->
+			<div v-if="weatherSelected" class="sixteen wide column" key="weatherSection">
+				<app-weather-report></app-weather-report>
 			</div>
 
 			<!-- Fortune Teller -->
@@ -29,6 +34,26 @@
 				<app-fortune-teller></app-fortune-teller>
 			</div>
 
+			<!-- Flip a Coin -->
+			<div v-if="!somethingSelected" class="eight wide column" key="coin">
+				<app-flip-a-coin></app-flip-a-coin>
+			</div>
+
+
+			<div class="sixteen wide column" key="info">
+				<div class="ui conatiner center aligned segment">
+					<div class="content">
+						<div class="ui green large label">
+							<i class="whatsapp icon"></i>+91-9601-525-888
+						</div>
+						<a href="https://www.github.com/qqlimaaxx" target="_blank">
+							<div class="ui black large label">
+								<i class="github icon"></i>QqlimaaxX
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
 		</transition-group>
 	</div>
 </template>
@@ -38,19 +63,24 @@ import News from './components/News.vue';
 import FortuneTeller from './components/FortuneTeller.vue';
 import FlipACoin from './components/FlipACoin.vue';
 import NewsSelector from './components/NewsSelector.vue';
+import WeatherReportSelector from './components/WeatherReportSelector.vue'
+import WeatherReport from './components/WeatherReport.vue'
 
 	export default{
 		data:function(){
 			return{
 				somethingSelected : false,
-				newsSelected : false
+				newsSelected : false,
+				weatherSelected: false
 			}
 		},
 		components:{
-			AppNews:News,
-			AppFortuneTeller:FortuneTeller,
-			AppFlipACoin:FlipACoin,
-			AppNewsSelector:NewsSelector
+			AppNews : News,
+			AppFortuneTeller : FortuneTeller,
+			AppFlipACoin : FlipACoin,
+			AppNewsSelector : NewsSelector,
+			AppWeatherReportSelector : WeatherReportSelector,
+			AppWeatherReport : WeatherReport
 		},
 		methods:{
 			newsSelectedProc(){
@@ -58,10 +88,16 @@ import NewsSelector from './components/NewsSelector.vue';
 				this.somethingSelected = true;
 				this.newsSelected = true;
 			},
+			weatherSelectedProc(){
+				console.log("Weather selected");
+				this.somethingSelected = true;
+				this.weatherSelected = true;
+			},
 			resetView(){
 				console.log("resetView called");
 				this.somethingSelected = false;
 				this.newsSelected = false;
+				this.weatherSelected = false;
 			}
 		}
 	}
@@ -69,7 +105,7 @@ import NewsSelector from './components/NewsSelector.vue';
 
 <style>
 	body{
-	background: linear-gradient(to right, #ece9e6, #ffffff);
+	background: linear-gradient(to right, #00c3ff, #ffff1c);
 	}
 
 	.bottom-to-up-enter,.bottom-to-up-leave-to{
@@ -103,5 +139,15 @@ import NewsSelector from './components/NewsSelector.vue';
 	}
 	.scale-enter-active{
 		transition-delay: 0.5s;
+	}
+
+	.mainTitle{
+		cursor: pointer;
+		transition: all 0.25s;
+	}
+
+	.mainTitle:hover{
+		background-color: #EEE;
+		transform: scale(1.015);
 	}
 </style>

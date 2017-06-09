@@ -2,13 +2,17 @@
 	
 	<div class="column">
 		<h1>News</h1>
-		<input type="checkbox" v-model="isChecked" value="true" @change="getSources">Show News only related to {{countryName}}</br>
+		<input type="checkbox" v-model="isChecked" value="true" @change="getSources"> Show News only related to {{countryName}}
+		</br>
+		<br>
 		<i class="notched circle loading icon" v-if="isLoadingSources"></i>
 		<select v-model="selectedSource" :disabled="isLoadingSources" class="ui dropdown">
 			<option value="default" v-if="isLoadingSources">Loading</option>
 			<option value="default" v-else>Select News Source</option>
 			<option v-for="source,index in sources" :value="index">{{source.name}}</option>
 		</select>
+		<br>
+		<br>
 		<app-news-article :source="generatedId"></app-news-article>
 	</div>
 

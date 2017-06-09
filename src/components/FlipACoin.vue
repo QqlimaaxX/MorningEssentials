@@ -1,7 +1,7 @@
 <template>
 <transition name="bottom-to-up" appear>
 	<div class="ui padded center aligned container segment">
-		<div class="ui header center aligned">Want to decide something? Flip a Coin</div>
+		<div class="ui header center aligned"><i class="radio icon"></i> Want to decide something? Flip a Coin</div>
 		<div class="ui compact segment" @click="flip">
 			<transition name="flip" mode="out-in" appear>
 				<div v-if="msg===true" class="ui circular segment" key="1">
