@@ -27,7 +27,7 @@ export default{
 	},
 	methods:{
 		getWeather(){
-			this.isLoading = false;
+			this.isLoading = true;
 			let url = this.weatherUrl + "?lat="+ this.lat +"&lon=" + this.lon + "&APPID=" + this.apiKey;
 			this.$http.get(url).then(res=>{
 				this.temp = Math.round((res.body.main.temp-273)*100)/100;

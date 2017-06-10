@@ -47,7 +47,12 @@
 			<div v-if="!somethingSelected" class="eight wide column" key="todos">
 				<app-todo-list></app-todo-list>
 			</div>
-
+			<div class="eight wide column" key="random">
+				<transition-group name="scale" tag="ul">
+					<li v-for="n in list" :key="n">{{n}}</li>
+				</transition-group>
+				<div class="ui button" @click="list.splice(0,1)">Remove</div>
+			</div>
 
 
 			<div class="sixteen wide column" key="info">
@@ -56,7 +61,7 @@
 						<div class="ui green large label">
 							<i class="whatsapp icon"></i>+91-9601-525-888
 						</div>
-						<a href="https://www.github.com/qqlimaaxx" target="_blank">
+						<a href="https://github.com/QqlimaaxX/MorningEssentials" target="_blank">
 							<div class="ui black large label">
 								<i class="github icon"></i>QqlimaaxX
 							</div>
@@ -83,7 +88,8 @@ import TodoList from "./components/TodoList.vue";
 			return{
 				somethingSelected : false,
 				newsSelected : false,
-				weatherSelected: false
+				weatherSelected: false,
+				list:[1,2,3,4,5,6,7,8,9,10]
 			}
 		},
 		components:{
@@ -117,10 +123,7 @@ import TodoList from "./components/TodoList.vue";
 	}
 </script>
 
-<style>
-	body{
-	background: linear-gradient(to right, #00c3ff, #ffff1c);
-	}
+<style scoped>
 
 	.bottom-to-up-enter,.bottom-to-up-leave-to{
 		opacity: 0;
@@ -130,12 +133,20 @@ import TodoList from "./components/TodoList.vue";
 	.bottom-to-up-enter-active,.bottom-to-up-leave-active{
 		transition: all 0.5s;
 	}
+	.bottom-to-up-move{
+		transition: transform 0.5s;
+	}
+	.bottom-to-up-leave-active{
+		position: absolute;
+	}
 
 	.scale-enter{
 		opacity: 0;
 		transform: scale(0.5);
 	}
-
+	.scale-move{
+		transition: transform 0.5s;
+	}
 	.scale-leave-to{
 		opacity: 0;
 		transform: scale(0.5);
@@ -144,13 +155,13 @@ import TodoList from "./components/TodoList.vue";
 	.scale-enter-active,.scale-leave-active{
 		transition: all 0.3s;
 	}
-	.scale-leave-active{
-		position: absolute;
-	}
 	.scale-enter-active{
 		transition-delay: 0.3s;
 	}
-
+	.scale-leave-active{
+		position: absolute;
+	}
+	
 	.mainTitle{
 		cursor: pointer;
 		transition: all 0.25s;

@@ -1,5 +1,5 @@
 <template>
-	<div class="ui conatiner segment" :class="{'loading' : isLoading}">
+	<div class="ui container segment" :class="{'loading' : isLoading}">
 		<div class="ui header">
 			<i class="book icon"></i>{{title}}
 		</div>
