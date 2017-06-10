@@ -17,8 +17,9 @@
 		</transition>
 		<br>
 		<br>
-		<transition-group class="ui cards" name="to-right" tag="div" appear>
-			<todo v-for="todo,index in todos" :key="todo.data+index" :index="index" :todo="todo" @deleteTodo="deleteTodo"></todo>
+		<transition-group class="ui segments" name="to-right" tag="div" appear>
+		<!-- Mohit, check carefully you've passed key=the todo object, nothing else worked on 11/06/17 -->
+			<todo v-for="todo,index in todos" :key="todo" :todo="todo" @deleteTodo="deleteTodo(index)"></todo>
 		</transition-group>
 	</div>
 </template>
@@ -47,7 +48,14 @@ export default{
 			this.isEditing = false;
 		},
 		deleteTodo(index){
+			console.log(index);
 			this.todos.splice(index,1);
+		}
+	},
+	created(){
+		for(let i=0;i<3;i++){
+			let t = {data:i,isDone:false};
+			this.todos.push(t);
 		}
 	}
 }
@@ -55,16 +63,20 @@ export default{
 </script>
 <style scoped>
 	.to-right-enter,.to-right-leave-to{
-		transform: translateX(100px);
+		transform: translateX(500px);
 		opacity: 0;
 	}
 
 	.to-right-enter-active,.to-right-leave-active{
-		transition: all 0.25s;
+		transition: all 1s;
 	}
 
-	.to-right{
+	.to-right-leave-active{
 		position: absolute;
+	}
+	
+	.to-right-move{
+		transition: all 1s;
 	}
 
 </style>

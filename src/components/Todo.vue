@@ -1,13 +1,11 @@
 <template>
-	<div class="ui fluid card" @click.stop="todo.isDone = !todo.isDone">
+	<div class="ui fluid segment" @click.stop="todo.isDone = !todo.isDone"  :class="{'gray-bg':todo.isDone}">
 		<div class="content" :class="{'strike' : todo.isDone}">
-			<div class="description">
 				{{todo.data}}
-			</div>
 		</div>
-		<div class="ui two bottom attached buttons">
-			<div class="ui right blue attached button">Edit</div>
-			<div class="ui left red attached button" @click.stop="deleteMe">Delete</div>
+		<div class="ui buttons fluid">
+			<div class="ui left blue button">Edit</div>
+			<div class="ui right red button" @click.stop="deleteMe">Delete</div>
 		</div>
 	</div>
 </template>
@@ -15,10 +13,10 @@
 <script>
 
 	export default{
-		props:["todo","index"],
+		props:["todo"],
 		methods:{
 			deleteMe(){
-				this.$emit('deleteTodo',this.index);
+				this.$emit('deleteTodo');
 			}
 		}
 	}
@@ -28,6 +26,10 @@
 <style scoped>
 .strike{
 	text-decoration: line-through;
+}
+
+.gray-bg{
+	background-color: #EEE;
 }
 
 .ui.card:hover{

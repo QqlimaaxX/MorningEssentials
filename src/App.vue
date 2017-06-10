@@ -47,13 +47,6 @@
 			<div v-if="!somethingSelected" class="eight wide column" key="todos">
 				<app-todo-list></app-todo-list>
 			</div>
-			<div class="eight wide column" key="random">
-				<transition-group name="scale" tag="ul">
-					<li v-for="n in list" :key="n">{{n}}</li>
-				</transition-group>
-				<div class="ui button" @click="list.splice(0,1)">Remove</div>
-			</div>
-
 
 			<div class="sixteen wide column" key="info">
 				<div class="ui conatiner center aligned segment">
@@ -123,7 +116,7 @@ import TodoList from "./components/TodoList.vue";
 	}
 </script>
 
-<style scoped>
+<style>
 
 	.bottom-to-up-enter,.bottom-to-up-leave-to{
 		opacity: 0;
