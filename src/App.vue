@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<transition-group tag="div" class="ui stackable grid container segment" name="scale">
+		<transition-group tag="div" class="ui stackable grid container segment" name="scale" appear>
 			<!-- title -->
 		 	<div class="sixteen wide column" key="title">
 				<div class="ui center aligned inverted green segment mainTitle" @click="resetView">
@@ -34,6 +34,10 @@
 				<app-fortune-teller></app-fortune-teller>
 			</div>
 
+			<!-- Quote -->
+			<div v-if="!somethingSelected" class="eight wide column" key="quote">
+				<app-quote></app-quote>
+			</div>
 			<!-- Flip a Coin -->
 			<div v-if="!somethingSelected" class="eight wide column" key="coin">
 				<app-flip-a-coin></app-flip-a-coin>
@@ -63,8 +67,9 @@ import News from './components/News.vue';
 import FortuneTeller from './components/FortuneTeller.vue';
 import FlipACoin from './components/FlipACoin.vue';
 import NewsSelector from './components/NewsSelector.vue';
-import WeatherReportSelector from './components/WeatherReportSelector.vue'
-import WeatherReport from './components/WeatherReport.vue'
+import WeatherReportSelector from './components/WeatherReportSelector.vue';
+import WeatherReport from './components/WeatherReport.vue';
+import Quote from './components/Quote.vue';
 
 	export default{
 		data:function(){
@@ -80,7 +85,8 @@ import WeatherReport from './components/WeatherReport.vue'
 			AppFlipACoin : FlipACoin,
 			AppNewsSelector : NewsSelector,
 			AppWeatherReportSelector : WeatherReportSelector,
-			AppWeatherReport : WeatherReport
+			AppWeatherReport : WeatherReport,
+			AppQuote: Quote
 		},
 		methods:{
 			newsSelectedProc(){
@@ -127,18 +133,14 @@ import WeatherReport from './components/WeatherReport.vue'
 		transform: scale(0.5);
 	}
 
-	.scale-move {
-	  transition: transform 0.5s;
-	}
-
 	.scale-enter-active,.scale-leave-active{
-		transition: all 0.5s;
+		transition: all 0.3s;
 	}
 	.scale-leave-active{
 		position: absolute;
 	}
 	.scale-enter-active{
-		transition-delay: 0.5s;
+		transition-delay: 0.3s;
 	}
 
 	.mainTitle{

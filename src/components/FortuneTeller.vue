@@ -2,7 +2,7 @@
 <transition name="bottom-to-up" appear>
 
 	<div class="ui container segment" :class="{'loading' : isLoading}">
-		<div class="ui header"><i class="doctor icon"></i>Fortune Baba Says</div>
+		<div class="ui header"><i class="idea icon"></i>Fortune Baba Says</div>
 		<div class="content">{{msg}}</div>
 	</div>
 </transition>

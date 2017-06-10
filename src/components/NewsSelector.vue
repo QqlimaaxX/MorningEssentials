@@ -1,5 +1,4 @@
 <template>
-<transition name="bottom-to-up" appear>
 	<div class="ui container segment" @click="selected">
 		<div class="ui header"><i class="newspaper icon"></i>News</div>
 		<div class="content">
@@ -8,7 +7,6 @@
 			<div class="ui button green">Read</div>
 		</div>
 	</div>
-</transition>
 </template>
 
 <script>

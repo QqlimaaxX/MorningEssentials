@@ -1,5 +1,4 @@
 <template>
-<transition name="bottom-to-up" appear>
 	<div class="ui padded center aligned container segment">
 		<div class="ui header center aligned"><i class="radio icon"></i> Want to decide something? Flip a Coin</div>
 		<div class="ui compact segment" @click="flip">
@@ -14,7 +13,6 @@
 		</div>
 		<button class="ui blue button" :class='{"loading":isFlipping}' @click="flip">Flip</button>
 	</div>
-</transition>
 </template>
 
 <script>

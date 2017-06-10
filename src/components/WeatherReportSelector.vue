@@ -1,6 +1,6 @@
 <template>
 	<div class="ui container center aligned segment" @click="weatherSelected" :class='{ "loading" : isLoading }'>
-		<div class="ui header"><i class="sun icon"></i>Weather Report</div>
+		<div class="ui header"><i class="cloud outline icon"></i>Weather Report</div>
 		<div class="content">
 			<div class="ui huge label">
 				{{temp}}&deg;C - {{desc}}
