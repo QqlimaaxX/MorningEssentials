@@ -43,6 +43,12 @@
 				<app-flip-a-coin></app-flip-a-coin>
 			</div>
 
+			<!-- todos -->
+			<div v-if="!somethingSelected" class="eight wide column" key="todos">
+				<app-todo-list></app-todo-list>
+			</div>
+
+
 
 			<div class="sixteen wide column" key="info">
 				<div class="ui conatiner center aligned segment">
@@ -70,6 +76,7 @@ import NewsSelector from './components/NewsSelector.vue';
 import WeatherReportSelector from './components/WeatherReportSelector.vue';
 import WeatherReport from './components/WeatherReport.vue';
 import Quote from './components/Quote.vue';
+import TodoList from "./components/TodoList.vue";
 
 	export default{
 		data:function(){
@@ -86,7 +93,8 @@ import Quote from './components/Quote.vue';
 			AppNewsSelector : NewsSelector,
 			AppWeatherReportSelector : WeatherReportSelector,
 			AppWeatherReport : WeatherReport,
-			AppQuote: Quote
+			AppQuote: Quote,
+			AppTodoList : TodoList
 		},
 		methods:{
 			newsSelectedProc(){
