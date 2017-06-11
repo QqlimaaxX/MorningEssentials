@@ -43,32 +43,26 @@ export default{
 				data:this.data,
 				isDone:false
 				}
-			this.data="";
 			this.todos.push(newTodo);
 			this.isEditing = false;
+			this.data="";
 		},
 		deleteTodo(index){
 			console.log(index);
 			this.todos.splice(index,1);
 		}
-	},
-	created(){
-		for(let i=0;i<3;i++){
-			let t = {data:i,isDone:false};
-			this.todos.push(t);
-		}
 	}
 }
 
 </script>
-<style scoped>
+<style>
 	.to-right-enter,.to-right-leave-to{
-		transform: translateX(500px);
+		transform: translateX(500px) scale(0) rotateZ(90deg);
 		opacity: 0;
 	}
 
 	.to-right-enter-active,.to-right-leave-active{
-		transition: all 1s;
+		transition: all 0.3s;
 	}
 
 	.to-right-leave-active{
@@ -76,7 +70,7 @@ export default{
 	}
 	
 	.to-right-move{
-		transition: all 1s;
+		transition: all 0.3s;
 	}
 
 </style>

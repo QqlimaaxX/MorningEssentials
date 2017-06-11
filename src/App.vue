@@ -81,8 +81,7 @@ import TodoList from "./components/TodoList.vue";
 			return{
 				somethingSelected : false,
 				newsSelected : false,
-				weatherSelected: false,
-				list:[1,2,3,4,5,6,7,8,9,10]
+				weatherSelected: false
 			}
 		},
 		components:{
