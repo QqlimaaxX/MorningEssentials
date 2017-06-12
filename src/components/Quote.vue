@@ -5,6 +5,7 @@
 		</div>
 		<div class="content">
 			{{quote}} - {{author}}
+			<div v-if="isError" class="ui inverted red segment">Error Loading</div>
 		</div>
 	</div>
 </template>
@@ -19,6 +20,7 @@ export default{
 			quote:"",
 			title:"",
 			isLoading:true,
+			isError:false
 		}
 	},
 	created(){
@@ -32,6 +34,7 @@ export default{
 			},
 			resp=>{
 				this.isLoading = false;
+				this.isError = true;
 				console.log("QuoteError");
 		});
 	}

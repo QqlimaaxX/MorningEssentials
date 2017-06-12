@@ -19,7 +19,7 @@
 		<br>
 		<transition-group class="ui segments" name="to-right" tag="div" appear>
 		<!-- Mohit, check carefully you've passed key=the todo object, nothing else worked on 11/06/17 -->
-			<todo v-for="todo,index in todos" :key="todo" :todo="todo" @deleteTodo="deleteTodo(index)"></todo>
+			<todo v-for="todo,index in todos" :key="todo.data" :todo="todo" @deleteTodo="deleteTodo(index)"></todo>
 		</transition-group>
 	</div>
 </template>
@@ -43,12 +43,11 @@ export default{
 				data:this.data,
 				isDone:false
 				}
+			this.data="";
 			this.todos.push(newTodo);
 			this.isEditing = false;
-			this.data="";
 		},
 		deleteTodo(index){
-			console.log(index);
 			this.todos.splice(index,1);
 		}
 	}
@@ -66,7 +65,7 @@ export default{
 	}
 
 	.to-right-leave-active{
-		position: absolute;
+		position: relative;
 	}
 	
 	.to-right-move{

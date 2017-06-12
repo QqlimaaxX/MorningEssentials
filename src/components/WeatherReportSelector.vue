@@ -1,12 +1,20 @@
 <template>
 	<div class="ui container center aligned segment" @click="weatherSelected" :class='{ "loading" : isLoading }'>
 		<div class="ui header"><i class="cloud outline icon"></i>Weather Report</div>
-		<div class="content">
+		<div class="content" v-if="!isError">
 			<div class="ui huge label">
 				{{temp}}&deg;C - {{desc}}
 			</div>
 			<br><br>
 			<div class="ui button green">More</div>
+		</div>
+		<div class="content" v-if="isError">
+			<div class="ui inverted red compact segment">Error
+				<div class="ui segment">
+					<li>Check your internet Connection</li>
+					<li>Or wait for this service to become available</li>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -22,19 +30,22 @@ export default{
 			lon:"",
 			temp:"",
 			desc:"",
-			isLoading : true
+			isLoading : true,
+			isError:false
 		}
 	},
 	methods:{
 		getWeather(){
 			this.isLoading = true;
 			let url = this.weatherUrl + "?lat="+ this.lat +"&lon=" + this.lon + "&APPID=" + this.apiKey;
+			console.log(url);
 			this.$http.get(url).then(res=>{
 				this.temp = Math.round((res.body.main.temp-273)*100)/100;
 				this.desc = res.body.weather[0].description[0].toUpperCase() + res.body.weather[0].description.slice(1);
 				this.isLoading = false;
 			},res=>{
 				console.log("Weather Error");
+				this.isError = true;
 				this.isLoading = false;
 			});
 		},
@@ -43,6 +54,7 @@ export default{
 		}
 	},
 	created(){
+		//this won't work without, internet
 		navigator.geolocation.getCurrentPosition(
 			pos=>{
 				this.lat = Math.round(pos.coords.latitude);
