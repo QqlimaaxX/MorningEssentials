@@ -6,18 +6,18 @@
 		<div class="ui stackable equal width grid">
 			<div class="column"  v-for="data,index in dataset">
 				<div class="ui center aligned segment">
-					<h3 v-if="index==0">Today</h3>
-					<h3 v-if="index==1">Tomorrow</h3>
-					<h3 v-if="index==2">Day after Tomorrow</h3>
-					<h3 v-if="index==3">And so on..</h3>
-					<h3 v-if="index>=4">...</h3>
-					<div class="ui orange massive label">{{Math.round((data.temp.day-273)*100)/100}}&deg;C</div>
+					<img class="ui centered image" :src="data.day.condition.icon"></img>
+					<h3>{{data.date.split("-").reverse().join("-")}}</h3>
+					<div class="ui huge label">Avg - {{data.day.avgtemp_c}}&deg;</div>
 					<br><br>
-					<div class="ui olive label">Humidity-{{data.humidity}}%</div>
+					<div class="ui orange label">{{data.day.mintemp_c}}&deg;C | {{data.day.maxtemp_c}}&deg;C</div>
+					<br>
+					<br>
+					<div class="ui olive label">Humidity-{{data.day.avghumidity}}%</div>
 					<br><br>
-					<div class="ui teal label">{{data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1)}}</div>
+					<div class="ui teal label">{{data.day.condition.text}}</div>
 					<br><br>
-					<div class="ui blue label">WindSpeed- {{Math.round((data.speed*3.6)*10)/10}} kmph</div>
+					<div class="ui blue label">WindSpeed- {{data.day.maxwind_kph}} kmph</div>
 				</div>
 			</div>
 		</div>
@@ -29,8 +29,8 @@
 export default{
 	data(){
 		return{
-			apiKey : "28019f1837a701334c0e6086709394a5",
-			forecastUrl:"http://api.openweathermap.org/data/2.5/forecast/daily",
+			apiKey : "2e61d59f2b894b3c82364026172106",
+			forecastUrl:"https://api.apixu.com/v1/forecast.json",
 			lat:"",
 			lon:"",
 			isLoading:true,
@@ -41,11 +41,12 @@ export default{
 	methods:{
 		getWeather(){
 			this.isLoading = false;
-			let url = this.forecastUrl + "?lat="+ this.lat +"&lon=" + this.lon + "&APPID=" + this.apiKey;
+			let url = this.forecastUrl + "?q="+ this.lat +"," + this.lon + "&key=" + this.apiKey + "&days="+this.numberofdays;
 			this.$http.get(url).then(res=>{
-				console.log(res);
-				this.dataset = res.body.list.reverse().splice(res.body.cnt-this.numberofdays).reverse();
-
+				this.dataset = res.body.forecast.forecastday;
+				for(var i=0;i<this.numberofdays;i++){
+					this.dataset[i].day.condition.icon = "https:"+this.dataset[i].day.condition.icon;
+				}
 				this.isLoading = false;
 			},res=>{
 				console.log("Weather Error");
@@ -56,8 +57,8 @@ export default{
 	created(){
 		navigator.geolocation.getCurrentPosition(
 			pos=>{
-				this.lat = Math.round(pos.coords.latitude);
-				this.lon = Math.round(pos.coords.longitude);
+				this.lat = Math.round(pos.coords.latitude*1000)/1000;
+				this.lon = Math.round(pos.coords.longitude*1000)/1000;
 				this.getWeather();
 			}
 			);

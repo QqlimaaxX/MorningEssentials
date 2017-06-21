@@ -15,7 +15,7 @@
 export default{
 	data(){
 		return{
-			apiUrl:"http://quotes.rest/qod.json",
+			apiUrl:"https://quotes.rest/qod.json",
 			author:"",
 			quote:"",
 			title:"",

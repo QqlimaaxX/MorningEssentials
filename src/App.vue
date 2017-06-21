@@ -162,8 +162,8 @@ import TodoList from "./components/TodoList.vue";
 	}
 
 	body{
-		background: no-repeat center center fixed url("https://unsplash.it/500/500/?random");
+		/*background: no-repeat center center fixed url("https://unsplash.it/500/500/?random");*/
 		background-size: cover;
-		/*background: linear-gradient(to right, #00c3ff, #ffff1c);*/
+		background: linear-gradient(to right, #00c3ff, #ffff1c);
 	}
 </style>
