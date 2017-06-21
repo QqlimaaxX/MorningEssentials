@@ -4,22 +4,23 @@
 		<div class="ui content" v-if="todos.length == 0">You have no todos today. Enjoy your day</div>
 		<br>
 		<transition name="to-right" mode="out-in" appear>
-		<div class="ui button orange" v-if="!isEditing" @click="isEditing=true" key="new">Add New Todo</div>
-		<form class="ui form" v-else @submit.prevent.stop="addNewTodo" key="todoform">
-			<div class="field">
-				<label>New Todo</label>
-				<input type="text" required placeholder="Your new Todo here" v-model="data">
-			</div>
-			<div class="field">
-				<button class="ui button">Submit</button>
-			</div>
-		</form>
+			<div class="ui button orange" v-if="!isEditing" @click="isEditing=!isEditing" key="newTodoButon">Add New Todo</div>
+
+			<form class="ui form" v-else @submit.prevent.stop="addNewTodo" key="todoform">
+				<div class="field">
+					<label>New Todo</label>
+					<input type="text" id="newTxt" required placeholder="Your new Todo here" v-model="data">
+				</div>
+				<div class="field">
+					<button class="ui button">Submit</button>
+				</div>
+			</form>
 		</transition>
 		<br>
 		<br>
 		<transition-group class="ui segments" name="to-right" tag="div" appear>
 		<!-- Mohit, check carefully you've passed key=the todo object, nothing else worked on 11/06/17 -->
-			<todo v-for="todo,index in todos" :key="todo.data" :todo="todo" @deleteTodo="deleteTodo(index)"></todo>
+			<todo v-for="todo,index in todos" :key="todo" :todo="todo" @deleteTodo="deleteTodo(index)"></todo>
 		</transition-group>
 	</div>
 </template>
@@ -39,16 +40,27 @@ export default{
 	components:{Todo},
 	methods:{
 		addNewTodo(){
+			//creating a newTodo object
 			let newTodo = {
 				data:this.data,
 				isDone:false
 				}
 			this.data="";
+			//inserting into array of todos
 			this.todos.push(newTodo);
 			this.isEditing = false;
 		},
 		deleteTodo(index){
 			this.todos.splice(index,1);
+		}
+	},
+	watch:{
+		isEditing:function(val){
+			if(val==true){
+				setTimeout(function(){
+						document.getElementById("newTxt").focus();			
+				},200)
+			}
 		}
 	}
 }
