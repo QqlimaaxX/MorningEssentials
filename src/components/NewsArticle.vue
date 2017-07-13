@@ -10,7 +10,7 @@
 				</div>
 
 				<div v-else class="ui orange segment" v-for="article in articles">
-					<div class="ui grid">
+					<div class="ui stackable grid">
 						<div class="four wide column">
 							<a :href="article.url" target="_blank" class="ui rounded image"><img :src="article.urlToImage" alt=""></a>
 						</div>

@@ -1,5 +1,5 @@
 <template>
-	<div class="ui container center aligned segment" @click="weatherSelected" :class='{ "loading" : isLoading }'>
+	<div class="ui container center aligned segment" @click="weatherSelected" :class="{'loading': isLoading}">
 		<div class="ui header"><i class="cloud outline icon"></i>Weather Report</div>
 		<div class="content" v-if="!isError">
 				<img class="ui centered image" :src="imgUrl"></img>
@@ -34,7 +34,7 @@ export default{
 			imgUrl:"",
 			isLoading : true,
 			isError:false
-		}
+			}
 	},
 	methods:{
 		getWeather(){
@@ -62,6 +62,9 @@ export default{
 				this.lat = Math.round(pos.coords.latitude*1000)/1000;
 				this.lon = Math.round(pos.coords.longitude*1000)/1000;
 				this.getWeather();
+			},
+			err=>{
+				this.error=true;
 			}
 			);
 	}
