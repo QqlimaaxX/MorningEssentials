@@ -2,7 +2,8 @@
 	<div class="ui container center aligned segment" @click="weatherSelected" :class="{'loading': isLoading}">
 		<div class="ui header"><i class="cloud outline icon"></i>Weather Report</div>
 		<div class="content" v-if="!isError">
-				<img class="ui centered image" :src="imgUrl"></img>
+			<div class="ui huge label">{{location}}</div>
+			<img class="ui centered image" :src="imgUrl"></img>
 			<div class="ui huge label">
 				{{temp}}&deg;C - {{desc}}
 			</div>
@@ -33,7 +34,8 @@ export default{
 			desc:"",
 			imgUrl:"",
 			isLoading : true,
-			isError:false
+			isError:false,
+			location:""
 			}
 	},
 	methods:{
@@ -41,6 +43,7 @@ export default{
 			this.isLoading = true;
 			let url = this.weatherUrl + "?q="+ this.lat +","+ this.lon + "&key=" + this.apiKey;
 			this.$http.get(url).then(res=>{
+				this.location = res.body.location.name+","+res.body.location.country; 
 				this.temp = Math.round((res.body.current.temp_c)*100)/100;
 				this.desc = res.body.current.condition.text;
 				this.imgUrl = "https:"+res.body.current.condition.icon;
